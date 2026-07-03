@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Desktop Portfolio Foundation",
+  title: "DZSZ",
   description: "A macOS-inspired desktop portfolio foundation built with Next.js, TypeScript, and Tailwind CSS.",
 };
 
