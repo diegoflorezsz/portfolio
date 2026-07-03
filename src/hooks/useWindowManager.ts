@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import type { OpenWindowInput, WindowInstance, WindowKind } from "@/types/window";
 
 const BASE_Z_INDEX = 100;
-const TRANSITION_DURATION_MS = 180;
+const TRANSITION_DURATION_MS = 240;
 
 const DEFAULT_SIZES: Record<WindowKind, { width: number; height: number }> = {
   about: { width: 560, height: 520 },
@@ -12,6 +12,12 @@ const DEFAULT_SIZES: Record<WindowKind, { width: number; height: number }> = {
   work: { width: 760, height: 560 },
   archive: { width: 680, height: 500 },
   project: { width: 760, height: 620 },
+  notes: { width: 640, height: 470 },
+  gallery: { width: 760, height: 620 },
+  trash: { width: 760, height: 620 },
+  "after-effects": { width: 356, height: 134 },
+  photoshop: { width: 356, height: 134 },
+  illustrator: { width: 356, height: 134 },
 };
 
 function getWindowId(input: OpenWindowInput) {
@@ -22,7 +28,16 @@ function getWindowId(input: OpenWindowInput) {
   return input.appId;
 }
 
-function getInitialPosition(index: number) {
+function getInitialPosition(index: number, appId: WindowKind) {
+  if (appId === "after-effects" || appId === "photoshop" || appId === "illustrator") {
+    const size = DEFAULT_SIZES[appId];
+
+    return {
+      x: Math.round((globalThis.innerWidth - size.width) / 2),
+      y: Math.round((globalThis.innerHeight - size.height) / 2),
+    };
+  }
+
   return {
     x: 96 + index * 28,
     y: 76 + index * 24,
@@ -74,7 +89,7 @@ export function useWindowManager() {
             title: input.title,
             status: "open",
             zIndex: nextZIndex,
-            position: getInitialPosition(currentWindows.length),
+            position: getInitialPosition(currentWindows.length, input.appId),
             size: DEFAULT_SIZES[input.appId],
             payload: input.payload,
           },

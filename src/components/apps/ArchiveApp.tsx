@@ -1,19 +1,24 @@
+﻿"use client";
+
 import { folders } from "@/data/folders";
 import { projects } from "@/data/projects";
+import { localizeText, useLanguage } from "@/i18n/language";
+import { uiText } from "@/i18n/ui";
 
 type ArchiveAppProps = {
   onOpenProject: (slug: string) => void;
 };
 
 export function ArchiveApp({ onOpenProject }: ArchiveAppProps) {
+  const { language } = useLanguage();
   const archiveFolder = folders.find((folder) => folder.id === "archive");
   const archiveProjects = projects.filter((project) => archiveFolder?.itemIds.includes(project.slug));
 
   return (
     <div className="space-y-5">
       <div>
-        <p className="text-sm uppercase tracking-[0.24em] text-white/50">Archive</p>
-        <h3 className="mt-2 text-3xl font-semibold tracking-tight">Older experiments</h3>
+        <p className="text-sm uppercase tracking-[0.24em] text-white/50">{localizeText(uiText.window.archive, language)}</p>
+        <h3 className="mt-2 text-3xl font-semibold tracking-tight">{localizeText(uiText.window.olderExperiments, language)}</h3>
       </div>
       <div className="space-y-3">
         {archiveProjects.map((project) => (
@@ -23,7 +28,7 @@ export function ArchiveApp({ onOpenProject }: ArchiveAppProps) {
             </span>
             <span>
               <span className="block font-semibold text-white">{project.title}</span>
-              <span className="block text-sm text-white/50">{project.category} · {project.year}</span>
+              <span className="block text-sm text-white/50">{localizeText(project.category, language)} · {project.year}</span>
             </span>
           </button>
         ))}

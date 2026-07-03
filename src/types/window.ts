@@ -1,6 +1,27 @@
 import type { Project } from "./portfolio";
 
-export type WindowKind = "about" | "contact" | "work" | "archive" | "project";
+export type WindowKind =
+  | "about"
+  | "contact"
+  | "work"
+  | "archive"
+  | "project"
+  | "notes"
+  | "gallery"
+  | "trash"
+  | "after-effects"
+  | "photoshop"
+  | "illustrator";
+
+export type NotesSectionId =
+  | "about"
+  | "services"
+  | "experience"
+  | "tools"
+  | "education"
+  | "languages"
+  | "ai-workflow"
+  | "contact";
 
 export type WindowStatus = "open" | "minimizing" | "minimized" | "maximized" | "closing";
 
@@ -16,6 +37,7 @@ export type WindowPosition = {
 
 export type WindowPayload = {
   projectSlug?: Project["slug"];
+  notesSection?: NotesSectionId;
 };
 
 export type WindowInstance = {

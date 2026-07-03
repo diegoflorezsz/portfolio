@@ -1,5 +1,10 @@
 import { Desktop } from "@/components/Desktop";
+import { LanguageProvider } from "@/i18n/language";
 
 export default function Home() {
-  return <Desktop />;
+  return (
+    <LanguageProvider>
+      <Desktop />
+    </LanguageProvider>
+  );
 }

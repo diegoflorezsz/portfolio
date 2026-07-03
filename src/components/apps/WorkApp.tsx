@@ -1,15 +1,21 @@
+﻿"use client";
+
 import { projects } from "@/data/projects";
+import { localizeText, useLanguage } from "@/i18n/language";
+import { uiText } from "@/i18n/ui";
 
 type WorkAppProps = {
   onOpenProject: (slug: string) => void;
 };
 
 export function WorkApp({ onOpenProject }: WorkAppProps) {
+  const { language } = useLanguage();
+
   return (
     <div className="space-y-5">
       <div>
-        <p className="text-sm uppercase tracking-[0.24em] text-white/50">Finder</p>
-        <h3 className="mt-2 text-3xl font-semibold tracking-tight">Selected Work</h3>
+        <p className="text-sm uppercase tracking-[0.24em] text-white/50">{localizeText(uiText.window.finder, language)}</p>
+        <h3 className="mt-2 text-3xl font-semibold tracking-tight">{localizeText(uiText.window.selectedWork, language)}</h3>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         {projects.map((project) => (
@@ -18,8 +24,8 @@ export function WorkApp({ onOpenProject }: WorkAppProps) {
               {project.thumbnail.fallback}
             </div>
             <h4 className="font-semibold text-white">{project.title}</h4>
-            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/40">{project.category} · {project.year}</p>
-            <p className="mt-3 text-sm leading-5 text-white/50">{project.summary}</p>
+            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/40">{localizeText(project.category, language)} · {project.year}</p>
+            <p className="mt-3 text-sm leading-5 text-white/50">{localizeText(project.summary, language)}</p>
           </button>
         ))}
       </div>
